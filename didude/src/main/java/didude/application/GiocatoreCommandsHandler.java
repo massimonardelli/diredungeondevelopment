@@ -1,6 +1,8 @@
 package didude.application;
 
+import didude.domain.Casella;
 import didude.domain.Gioco;
+import didude.domain.Mappa;
 import didude.domain.Partita;
 
 /**
@@ -14,4 +16,31 @@ public class GiocatoreCommandsHandler {
         Partita nuovaPartita = gioco.nuovaPartita(dimensioneMappa);
         return nuovaPartita;
     }
+
+    public void handle(SalvaPartitaCommand salvaPartitaCommand) {
+        Gioco gioco = Gioco.instance;
+        Partita partitaDaSalvare = salvaPartitaCommand.partita();
+        gioco.salvaPartita(partitaDaSalvare);
+    }
+
+    public Partita handle() { // Actually a query.
+        Gioco gioco = Gioco.instance;
+        Partita partitaCaricata = gioco.caricaPartita();
+        return partitaCaricata;
+    }
+
+    public void handle(FinisciPartitaCommand finisciPartitaCommand) {
+        Partita partitaDaFinire = finisciPartitaCommand.partita();
+        partitaDaFinire.finisci();
+    }
+
+    public void handle(CostruisciCommand costruisciCommand) {
+        Partita partita = costruisciCommand.partita();
+        Mappa mappa = partita.mappa();
+        Integer row = costruisciCommand.row();
+        Integer column = costruisciCommand.column();
+        Casella casella = mappa.casella(row, column);
+        casella.posizionaSopraUnaCostruzione();
+    }
+
 }

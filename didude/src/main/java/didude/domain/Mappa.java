@@ -35,11 +35,17 @@ public class Mappa {
         if (row < 0) {
             throw new IllegalArgumentException("Parameter 'row' cannot be less than '0'.");
         }
+        if (row >= caselle.length) {
+            throw new IllegalArgumentException("Parameter 'row' cannot be greater than map's row length.");
+        }
         if (column == null) {
-            throw new IllegalArgumentException("Parameter 'row' cannot be null.");
+            throw new IllegalArgumentException("Parameter 'column' cannot be null.");
         }
         if (column < 0) {
-            throw new IllegalArgumentException("Parameter 'row' cannot be less than '0'.");
+            throw new IllegalArgumentException("Parameter 'column' cannot be less than '0'.");
+        }
+        if (column >= caselle[0].length) {
+            throw new IllegalArgumentException("Parameter 'column' cannot be greater than map's column length.");
         }
         Casella casella = caselle[row][column];
         return casella;
